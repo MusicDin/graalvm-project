@@ -1,0 +1,37 @@
+################################################################
+#                             ERRORS
+################################################################
+#
+# [ FAILED ]
+# --no-fallback image does NOT compile
+#
+# [ERROR]
+# Main entry point class 'com.kumuluz.ee.EeApplication' not found.
+#################################################################
+
+## Build stage
+FROM maven:3.6.3-jdk-8-slim AS build
+
+COPY api /usr/src/app/api
+COPY reflectionConfig.json /usr/src/app
+COPY pom.xml /usr/src/app
+
+RUN mvn -f /usr/src/app/pom.xml clean install
+
+
+## Production stage
+FROM oracle/graalvm-ce:20.0.0-java8
+
+COPY --from=build /usr/src/app/api/target /usr/app/api/target
+
+# ReflectionConfig file is not used
+COPY --from=build /usr/src/app/reflectionConfig.json /usr/app/reflectionConfig.json
+
+EXPOSE 8080
+
+RUN gu install native-image
+RUN gu install R
+
+RUN native-image --language:js -cp /usr/app/api/target/classes:/usr/app/api/target/dependency/* com.kumuluz.ee.EeApplication -H:+ReportExceptionStackTraces --no-fallback --report-unsupported-elements-at-runtime runme
+
+ENTRYPOINT ["./runme"]

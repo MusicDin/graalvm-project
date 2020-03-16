@@ -1,0 +1,55 @@
+
+################################################################
+#                             ERRORS
+################################################################
+#
+# [ OK ]
+# Compiles --no-fallback image
+#
+# [ ERROR ]
+# Exception in thread "main" com.kumuluz.ee.loader.exception.EeClassLoaderException: Not a JAR: /runme java.util.zip.ZipException: zip END header not found
+#        at com.kumuluz.ee.loader.EeClassLoader.<init>(EeClassLoader.java:121)
+#        at com.kumuluz.ee.loader.EeClassLoader.<init>(EeClassLoader.java:69)
+#        at com.kumuluz.ee.loader.EeBootLoader.launch(EeBootLoader.java:53)
+#        at com.kumuluz.ee.loader.EeBootLoader.main(EeBootLoader.java:41)
+# Caused by: java.util.zip.ZipException: zip END header not found
+#        at com.oracle.svm.core.jdk8.zipfile.ZipFile$Source.zerror(ZipFile.java:1317)
+#        at com.oracle.svm.core.jdk8.zipfile.ZipFile$Source.findEND(ZipFile.java:1218)
+#        at com.oracle.svm.core.jdk8.zipfile.ZipFile$Source.initCEN(ZipFile.java:1225)
+#        at com.oracle.svm.core.jdk8.zipfile.ZipFile$Source.<init>(ZipFile.java:1062)
+#        at com.oracle.svm.core.jdk8.zipfile.ZipFile$Source.get(ZipFile.java:1022)
+#        at java.util.zip.ZipFile.<init>(ZipFile.java:261)
+#        at java.util.zip.ZipFile.<init>(ZipFile.java:191)
+#        at java.util.jar.JarFile.<init>(JarFile.java:166)
+#        at java.util.jar.JarFile.<init>(JarFile.java:130)
+#        at com.kumuluz.ee.loader.EeClassLoader.<init>(EeClassLoader.java:114)
+#        ... 3 more
+#
+#################################################################
+
+## Build stage
+FROM maven:3.6.3-jdk-8-slim AS build
+
+COPY api /usr/src/app/api
+COPY reflectionConfig.json /usr/src/app
+COPY pom.xml /usr/src/app
+
+RUN mvn -f /usr/src/app/pom.xml clean install
+
+
+## Production stage
+FROM oracle/graalvm-ce:20.0.0-java8
+
+COPY --from=build /usr/src/app/api/target/graalvm-basic.jar /usr/app/graalvm-basic.jar
+
+# ReflectionConfig file is not used
+COPY --from=build /usr/src/app/reflectionConfig.json /usr/app/reflectionConfig.json
+
+EXPOSE 8080
+
+RUN gu install native-image
+RUN gu install R
+
+RUN native-image --language:js --language:R -jar /usr/app/graalvm-basic.jar -H:IncludeResourceBundles=META-INF/kumuluzee/boot-loader -H:+ReportExceptionStackTraces --no-fallback --report-unsupported-elements-at-runtime runme
+
+ENTRYPOINT ["./runme"]
