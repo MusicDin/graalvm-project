@@ -10,11 +10,11 @@ Installation steps are avaible on [GraalVM official site](https://www.graalvm.or
 
 ## Project elements
 + Simple service:
- + API which return constants
- + Servlet which returns constants
- + Only one module (no business logic and no DB connectivity)
+  + API which return constants
+  + Servlet which returns constants
+  + Only one module (no business logic and no DB connectivity)
 + Dockerfile for building an docker image
- + Folder *Dockerfiles* contains backups and different type of docker files
+  + Folder *Dockerfiles* contains backups and different type of docker files
 
 ## Goals
 | Goal | Goal description | Status |
@@ -66,15 +66,17 @@ If everything is done right, you should be able to start native-image:
 
 ## Errors
 + When docker image is run with ```copy-dependencies``` type of packaging the following error occurs:
-```
-Main entry point class 'com.kumuluz.ee.EeApplication' not found.
-```
+  ```
+  Main entry point class 'com.kumuluz.ee.EeApplication' not found.
+  ```
+  See [docker file](Dockerfiles/Dockerfile_cp).
 
 + When run locally or in docker image with ```repackage``` type of packaging the following error occurs:
-```
-Exception in thread "main" com.kumuluz.ee.loader.exception.EeClassLoaderException: Not a JAR: <name_of_native_image> java.util.zip.ZipException: zip END header not found
-```
-
+  ```
+  Exception in thread "main" com.kumuluz.ee.loader.exception.EeClassLoaderException: Not a JAR: <name_of_native_image> java.util.zip.ZipException: zip END header not found
+  ```
+  See [docker file](Dockerfiles/Dockerfile_jar_compiles)
+  
 ## Notes
 + GraalVM ```native-image``` allows *ahead-of-time*(AoT) compilation in comparison to classic *just-in-time*(JiT) compilation used in JVM.
 It can create fallback or no-fallback image:
