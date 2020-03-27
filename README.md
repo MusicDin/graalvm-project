@@ -29,6 +29,41 @@ Installation steps are avaible on [GraalVM official site](https://www.graalvm.or
 | Complex service | Whole KumuluzEE functionality | |
 | Expand KumuluzEE maven-plugin| Final goal | |
 
+## Tracing agent
+
+Use native-image-agent to generate configuration files for native-image:
+
+```
+sudo java -agentlib:native-image-agent=config-merge-dir=api/src/main/resources/META-INF/native-image -jar api/target/graalvm-basic.jar 
+```
+
+After configuration files are generated, repackage application using maven:
+```
+mvn clean package 
+```
+
+Then generate native-image:
+```
+sudo native-image --no-fallback \
+        --allow-incomplete-classpath \ 
+        --enable-https \
+        -H:+JNI \
+        -H:+ReportUnsupportedElementsAtRuntime \
+        -H:+ReportExceptionStackTraces \
+        -H:EnableURLProtocols=http,https,jar,jrt \
+        -H:ConfigurationFileDirectories=api/src/main/resources/META-INF/native-image/ \
+        -H:ReflectionConfigurationFiles=api/src/main/resources/META-INF/native-image/reflect-config.json \
+        -H:ResourceConfigurationFiles=api/src/main/resources/META-INF/native-image/resource-config.json \
+        -H:JNIConfigurationFiles=api/src/main/resources/META-INF/native-image/jni-config.json \
+        -jar api/target/graalvm-basic.jar
+```
+
+If everything is done right, you should be able to start native-image:
+```
+./graalvm-basic 
+```
+
+
 ## Errors
 + When docker image is run with ```copy-dependencies``` type of packaging the following error occurs:
 ```

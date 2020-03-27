@@ -9,7 +9,7 @@ RUN mvn -f /usr/src/app/pom.xml clean install
 
 
 ##### Production stage ####
-FROM oracle/graalvm-ce:20.0.0-java8
+FROM oracle/graalvm-ce:20.0.0-java11
 
 ## FAT JAR (copies only jar)
 #COPY --from=build /usr/src/app/api/target/graalvm-basic.jar /usr/app/graalvm-basic.jar

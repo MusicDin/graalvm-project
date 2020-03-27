@@ -1,0 +1,15 @@
+{
+  "resources":[
+    {"pattern":"\\Qconfig.yaml\\E"}, 
+    {"pattern":"\\Qjetty-dir.css\\E"}, 
+    {"pattern":"\\Qorg/eclipse/jetty/http/encoding.properties\\E"}, 
+    {"pattern":"\\Qorg/eclipse/jetty/http/mime.properties\\E"}, 
+    {"pattern":"\\Qorg/eclipse/jetty/version/build.properties\\E"}, 
+    {"pattern":"\\Qorg/eclipse/jetty/webapp/webdefault.xml\\E"}, 
+    {"pattern":"\\Qorg/glassfish/jersey/internal/build.properties\\E"}, 
+    {"pattern":"\\Qwebapp\\E"}
+  ],
+  "bundles":[
+    {"name":"META-INF/kumuluzee/boot-loader"}
+  ]
+}
