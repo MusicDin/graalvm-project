@@ -31,7 +31,11 @@ Installation steps are avaible on [GraalVM official site](https://www.graalvm.or
 
 ## Tracing agent
 
-Use native-image-agent to generate configuration files for native-image:
+*Note: To change between uber-jar or exploded, maven-plugin goal must be set to repackage for uber-jar and to copy-dependencies for exploded.*
+
+### UBER(FAT) JAR
+
+Use native-image-agent to generate configuration files for native-image (application will start):
 
 ```
 sudo java -agentlib:native-image-agent=config-merge-dir=api/src/main/resources/META-INF/native-image -jar api/target/graalvm-basic.jar 
@@ -63,6 +67,41 @@ If everything is done right, you should be able to start native-image:
 ./graalvm-basic 
 ```
 
+### EXPLODED 
+
+
+Use native-image-agent to generate configuration files for native-image (application will start):
+
+```
+sudo java -agentlib:native-image-agent=config-merge-dir=api/src/main/resources/META-INF/native-image -cp api/target/classes:api/target/dependency/* com.kumuluz.ee.EeApplication
+```
+
+After configuration files are generated, repackage application using maven:
+```
+mvn clean package 
+```
+
+Then generate native-image:
+```
+sudo native-image --no-fallback \
+        --allow-incomplete-classpath \ 
+        --enable-https \
+        -H:+JNI \
+        -H:+ReportUnsupportedElementsAtRuntime \
+        -H:+ReportExceptionStackTraces \
+        -H:EnableURLProtocols=http,https,jar,jrt \
+        -H:ConfigurationFileDirectories=api/src/main/resources/META-INF/native-image/ \
+        -H:ReflectionConfigurationFiles=api/src/main/resources/META-INF/native-image/reflect-config.json \
+        -H:ResourceConfigurationFiles=api/src/main/resources/META-INF/native-image/resource-config.json \
+        -H:JNIConfigurationFiles=api/src/main/resources/META-INF/native-image/jni-config.json \
+        -cp api/target/classes:api/target/dependency/* com.kumuluz.ee.EeApplication \
+        graalvm-basic
+```
+
+If everything is done right, you should be able to start native-image:
+```
+./graalvm-basic 
+```
 
 ## Errors
 + When docker image is run with ```copy-dependencies``` type of packaging the following error occurs:
@@ -76,32 +115,21 @@ If everything is done right, you should be able to start native-image:
   Exception in thread "main" com.kumuluz.ee.loader.exception.EeClassLoaderException: Not a JAR: <name_of_native_image> java.util.zip.ZipException: zip END header not found
   ```
   See [docker file](Dockerfiles/Dockerfile_jar_compiles)
-  
-## Notes
-+ GraalVM ```native-image``` allows *ahead-of-time*(AoT) compilation in comparison to classic *just-in-time*(JiT) compilation used in JVM.
-It can create fallback or no-fallback image:
- + ```fallback``` image is JDK dependent
- + ```no-fallback``` image is stand-alone (or JDK independent)
  
-## Used native-image tags 
-General options:
-+ ```-cp <classpath>``` or ```-jar <jar>``` according to packaging type
-+ ```--no-fallback``` generates no-fallback image or throws exception
-+ ```--report-unsupported-elements-at-runtime``` reports usage of unsupported methods and fields at run time
-+ ```--language:<languageId>``` makes sure that given language is available as language for the image
-
-*Note that all options are available on [GraalVM official site](https://www.graalvm.org/docs/reference-manual/native-image/) or using command ```native-image --help```.*
-
-Expert options:
-+ ```-H:IncludeResourceBundles=META-INF/kumuluzee/boot-loader```
-+ ```-H:+ReportExceptionStackTraces```
-
-*Note that all options are available using command ```native-image --expert-options```.*
-
 ## Useful links
-+ [Github - JakaBernard/graalvm-diploma-aplikacija](https://github.com/JakaBernard/graalvm-diploma-aplikacija)
-+ [Github - service loader error](https://github.com/cstancu/native-image-service-loader-demo/blob/master/reflection_config.json)
 
+### Knowledge base
++ [Github - JakaBernard/graalvm-diploma-aplikacija](https://github.com/JakaBernard/graalvm-diploma-aplikacija)
++ [Github - Oracle/GraalVM/native-image-limitations](https://github.com/oracle/graal/blob/master/substratevm/LIMITATIONS.md)
++ [Medium - Updates on Class Initialization in GraalVM Native Image Generation](https://medium.com/graalvm/updates-on-class-initialization-in-graalvm-native-image-generation-c61faca461f7)
++ [Introducing the Tracing Agent: Simplifying GraalVM Native Image Configuration](https://medium.com/graalvm/introducing-the-tracing-agent-simplifying-graalvm-native-image-configuration-c3b56c486271)
++ [InfoQ - GraalVM 20.0: Run Tomcat as Native Image on Windows](https://www.infoq.com/news/2020/03/graalvm-20-tomcat-native-windows/)
++ [Apache - Tomacat 9 GraalVM support](https://ci.apache.org/projects/tomcat/tomcat9/docs/graal.html)
+
+### Forums/Issues
++ [Github - Service loader error](https://github.com/cstancu/native-image-service-loader-demo/blob/master/reflection_config.json)
++ [Github Issue - Error building Scala project with native-image](https://github.com/oracle/graal/issues/1505)
++ [Stackoverflow - Can't find bundle for base name /Bundle](https://stackoverflow.com/questions/12986234/cant-find-bundle-for-base-name-bundle-locale-en-us/48726842)
 
 ## Technologies used in project
 + [KumuluzEE](https://ee.kumuluz.com/)
