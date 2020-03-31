@@ -73,7 +73,7 @@ If everything is done right, you should be able to start native-image:
 Use native-image-agent to generate configuration files for native-image (application will start):
 
 ```
-sudo java -agentlib:native-image-agent=config-merge-dir=api/src/main/resources/META-INF/native-image -cp api/target/classes:api/target/dependency/* com.kumuluz.ee.EeApplication
+sudo java -agentlib:native-image-agent=config-output-dir=api/src/main/resources/META-INF/native-image -cp api/target/classes:api/target/dependency/* com.kumuluz.ee.EeApplication
 ```
 
 After configuration files are generated, repackage application using maven:
@@ -89,7 +89,7 @@ sudo native-image --no-fallback \
         -H:+JNI \
         -H:+ReportUnsupportedElementsAtRuntime \
         -H:+ReportExceptionStackTraces \
-        -H:EnableURLProtocols=http,https,jar,jrt \
+        -H:EnableURLProtocols=http,https \
         -H:ConfigurationFileDirectories=api/src/main/resources/META-INF/native-image/ \
         -H:ReflectionConfigurationFiles=api/src/main/resources/META-INF/native-image/reflect-config.json \
         -H:ResourceConfigurationFiles=api/src/main/resources/META-INF/native-image/resource-config.json \

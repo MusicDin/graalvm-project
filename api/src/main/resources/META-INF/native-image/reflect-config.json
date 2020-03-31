@@ -235,6 +235,12 @@
   "allDeclaredConstructors":true
 },
 {
+  "name":"org.glassfish.jersey.inject.hk2.RequestContext",
+  "allDeclaredFields":true,
+  "allDeclaredMethods":true,
+  "allDeclaredConstructors":true
+},
+{
   "name":"org.glassfish.jersey.internal.JaxrsProviders",
   "allDeclaredFields":true,
   "allDeclaredMethods":true,
@@ -665,6 +671,12 @@
   "allDeclaredConstructors":true
 },
 {
+  "name":"org.glassfish.jersey.server.internal.process.RequestProcessingContextReference",
+  "allDeclaredFields":true,
+  "allDeclaredMethods":true,
+  "allDeclaredConstructors":true
+},
+{
   "name":"org.glassfish.jersey.server.model.ModelProcessor",
   "methods":[
     {"name":"processResourceModel","parameterTypes":["org.glassfish.jersey.server.model.ResourceModel","javax.ws.rs.core.Configuration"] }, 
@@ -780,7 +792,14 @@
   "allDeclaredFields":true,
   "allDeclaredMethods":true,
   "allPublicMethods":true,
+  "allDeclaredConstructors":true,
   "allPublicConstructors":true
+},
+{
+  "name":"si.fri.prpo.servlets.Servlet",
+  "allDeclaredFields":true,
+  "allDeclaredMethods":true,
+  "methods":[{"name":"<init>","parameterTypes":[] }]
 },
 {
   "name":"sun.misc.Unsafe",
