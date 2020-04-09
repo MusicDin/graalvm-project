@@ -26,7 +26,6 @@
   ],
   "bundles":[
     {"name":"META-INF/kumuluzee/versions"}, 
-    {"name":"javax.servlet.LocalStrings"}, 
     {"name":"org.glassfish.jersey.internal.localization"}, 
     {"name":"org.glassfish.jersey.server.internal.localization"}, 
     {"name":"org.glassfish.jersey.servlet.init.internal.localization"}

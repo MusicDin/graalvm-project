@@ -3,3 +3,4 @@
 *.iml
 */target/
 graalvm-basic
+hs_*.log
