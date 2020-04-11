@@ -53,6 +53,7 @@ sudo native-image --no-fallback \
         --enable-https \
         -H:+JNI \
         -H:+ReportUnsupportedElementsAtRuntime \
+        -H:+PrintClassInitialization \
         -H:+ReportExceptionStackTraces \
         -H:EnableURLProtocols=http,https,jar,jrt \
         -H:ConfigurationFileDirectories=api/src/main/resources/META-INF/native-image/ \
@@ -88,6 +89,7 @@ sudo native-image --no-fallback \
         --enable-https \
         -H:+JNI \
         -H:+ReportUnsupportedElementsAtRuntime \
+        -H:+PrintClassInitialization \
         -H:+ReportExceptionStackTraces \
         -H:EnableURLProtocols=http,https \
         -H:ConfigurationFileDirectories=api/src/main/resources/META-INF/native-image/ \
@@ -103,22 +105,16 @@ If everything is done right, you should be able to start native-image:
 ./graalvm-basic 
 ```
 
-## Errors
-+ When docker image is run with ```copy-dependencies``` type of packaging the following error occurs:
-  ```
-  Main entry point class 'com.kumuluz.ee.EeApplication' not found.
-  ```
-  See [docker file](Dockerfiles/Dockerfile_cp).
+## Extra
 
-+ When run locally or in docker image with ```repackage``` type of packaging the following error occurs:
-  ```
-  Exception in thread "main" com.kumuluz.ee.loader.exception.EeClassLoaderException: Not a JAR: <name_of_native_image> java.util.zip.ZipException: zip END header not found
-  ```
-  See [docker file](Dockerfiles/Dockerfile_jar_compiles)
+Force org.eclipse.jetty package to be resolved at run time instead in build time
+```--initialize-at-run-time=org.eclipse.jetty``` 
+
  
 ## Useful links
 
 ### Knowledge base
++ [Class initialization in Native Image](https://github.com/oracle/graal/blob/master/substratevm/CLASS-INITIALIZATION.md)
 + [Github - JakaBernard/graalvm-diploma-aplikacija](https://github.com/JakaBernard/graalvm-diploma-aplikacija)
 + [Github - Oracle/GraalVM/native-image-limitations](https://github.com/oracle/graal/blob/master/substratevm/LIMITATIONS.md)
 + [Medium - Updates on Class Initialization in GraalVM Native Image Generation](https://medium.com/graalvm/updates-on-class-initialization-in-graalvm-native-image-generation-c61faca461f7)
