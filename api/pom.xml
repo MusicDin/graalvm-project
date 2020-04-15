@@ -61,7 +61,7 @@
                 <version>3.7.0</version>
                 <executions>
                     <execution>
-                        <id>package</id>
+                        <id>repackage</id>
                         <goals>
                             <goal>copy-dependencies</goal>
                         </goals>

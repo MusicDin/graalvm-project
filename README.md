@@ -35,16 +35,16 @@ Installation steps are avaible on [GraalVM official site](https://www.graalvm.or
 
 ### UBER(FAT) JAR
 
+```
+mvn clean package 
+```
+
 Use native-image-agent to generate configuration files for native-image (application will start):
 
 ```
 sudo java -agentlib:native-image-agent=config-merge-dir=api/src/main/resources/META-INF/native-image -jar api/target/graalvm-basic.jar 
 ```
 
-After configuration files are generated, repackage application using maven:
-```
-mvn clean package 
-```
 
 Then generate native-image:
 ```
@@ -70,16 +70,14 @@ If everything is done right, you should be able to start native-image:
 
 ### EXPLODED 
 
+```
+mvn clean package 
+```
 
 Use native-image-agent to generate configuration files for native-image (application will start):
 
 ```
 sudo java -agentlib:native-image-agent=config-output-dir=api/src/main/resources/META-INF/native-image -cp api/target/classes:api/target/dependency/* com.kumuluz.ee.EeApplication
-```
-
-After configuration files are generated, repackage application using maven:
-```
-mvn clean package 
 ```
 
 Then generate native-image:
@@ -109,7 +107,6 @@ If everything is done right, you should be able to start native-image:
 
 Force org.eclipse.jetty package to be resolved at run time instead in build time
 ```--initialize-at-run-time=org.eclipse.jetty``` 
-
  
 ## Useful links
 
