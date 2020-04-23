@@ -118,6 +118,7 @@ Force org.eclipse.jetty package to be resolved at run time instead in build time
 + [Introducing the Tracing Agent: Simplifying GraalVM Native Image Configuration](https://medium.com/graalvm/introducing-the-tracing-agent-simplifying-graalvm-native-image-configuration-c3b56c486271)
 + [InfoQ - GraalVM 20.0: Run Tomcat as Native Image on Windows](https://www.infoq.com/news/2020/03/graalvm-20-tomcat-native-windows/)
 + [Apache - Tomacat 9 GraalVM support](https://ci.apache.org/projects/tomcat/tomcat9/docs/graal.html)
++ [a]
 
 ### Forums/Issues
 + [Github - Service loader error](https://github.com/cstancu/native-image-service-loader-demo/blob/master/reflection_config.json)
