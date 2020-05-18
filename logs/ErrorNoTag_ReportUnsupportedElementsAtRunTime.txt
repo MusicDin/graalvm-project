@@ -1,0 +1,200 @@
+Build on Server(pid: 19503, port: 38707)
+[graalvm-basic:19503]    classlist:   4,764.40 ms,  1.00 GB
+[graalvm-basic:19503]        (cap):     924.54 ms,  1.00 GB
+[graalvm-basic:19503]        setup:   1,504.56 ms,  1.00 GB
+[graalvm-basic:19503]   (typeflow):  34,234.74 ms,  4.42 GB
+[graalvm-basic:19503]    (objects):  55,147.43 ms,  4.42 GB
+[graalvm-basic:19503]   (features):   3,698.81 ms,  4.42 GB
+[graalvm-basic:19503]     analysis:  98,048.76 ms,  4.42 GB
+Error: Unsupported features in 3 methods
+Detailed message:
+Error: com.oracle.graal.pointsto.constraints.UnsupportedFeatureException: Invoke with MethodHandle argument could not be reduced to at most a single call or single field access. The method handle must be a compile time constant, e.g., be loaded from a `static final` field. Method that contains the method handle invocation: java.lang.invoke.Invokers$Holder.linkToTargetMethod(Object, Object)
+To diagnose the issue, you can add the option --report-unsupported-elements-at-runtime. The error is then reported at run time when the invoke is executed.
+Trace: 
+	at parsing java.lang.invoke.MethodHandles$Lookup.protectionDomain(MethodHandles.java:978)
+Call path from entry point to java.lang.invoke.MethodHandles$Lookup.protectionDomain(Class): 
+	at java.lang.invoke.MethodHandles$Lookup.protectionDomain(MethodHandles.java:978)
+	at java.lang.invoke.MethodHandles$Lookup.lookupClassProtectionDomain(MethodHandles.java:972)
+	at java.lang.invoke.MethodHandles$Lookup.defineClass(MethodHandles.java:960)
+	at javassist.util.proxy.DefineClassHelper.toPublicClass(DefineClassHelper.java:334)
+	at javassist.util.proxy.FactoryHelper.toClass(FactoryHelper.java:134)
+	at javassist.util.proxy.ProxyFactory.createClass3(ProxyFactory.java:603)
+	at javassist.util.proxy.ProxyFactory.createClass1(ProxyFactory.java:525)
+	at javassist.util.proxy.ProxyFactory.createClass(ProxyFactory.java:449)
+	at org.jvnet.hk2.internal.ProxyUtilities$4.run(ProxyUtilities.java:148)
+	at com.oracle.svm.core.jdk.Target_java_security_AccessController.doPrivileged(SecuritySubstitutions.java:81)
+	at org.jvnet.hk2.internal.CacheKey.equals(CacheKey.java:121)
+	at java.util.concurrent.ConcurrentHashMap.get(ConcurrentHashMap.java:940)
+	at java.util.Properties.getProperty(Properties.java:1125)
+	at com.oracle.svm.core.jdk.SystemPropertiesSupport.getProperty(SystemPropertiesSupport.java:144)
+	at com.oracle.svm.core.jdk.Target_java_lang_System.getProperty(JavaLangSubstitutions.java:340)
+	at com.oracle.svm.jni.JNIJavaCallWrappers.jniInvoke_ARRAY:Ljava_lang_System_2_0002egetProperty_00028Ljava_lang_String_2_00029Ljava_lang_String_2(generated:0)
+Error: com.oracle.svm.hosted.substitute.DeletedElementException: Unsupported method java.lang.ClassLoader.defineClass1(ClassLoader, String, byte[], int, int, ProtectionDomain, String) is reachable
+To diagnose the issue, you can add the option --report-unsupported-elements-at-runtime. The unsupported element is then reported at run time when it is accessed the first time.
+Trace: 
+	at parsing java.lang.System$2.defineClass(System.java:2127)
+Call path from entry point to java.lang.System$2.defineClass(ClassLoader, String, byte[], ProtectionDomain, String): 
+	at java.lang.System$2.defineClass(System.java:2127)
+	at java.lang.invoke.MethodHandles$Lookup.defineClass(MethodHandles.java:962)
+	at javassist.util.proxy.DefineClassHelper.toPublicClass(DefineClassHelper.java:334)
+	at javassist.util.proxy.FactoryHelper.toClass(FactoryHelper.java:134)
+	at javassist.util.proxy.ProxyFactory.createClass3(ProxyFactory.java:603)
+	at javassist.util.proxy.ProxyFactory.createClass1(ProxyFactory.java:525)
+	at javassist.util.proxy.ProxyFactory.createClass(ProxyFactory.java:449)
+	at org.jvnet.hk2.internal.ProxyUtilities$4.run(ProxyUtilities.java:148)
+	at com.oracle.svm.core.jdk.Target_java_security_AccessController.doPrivileged(SecuritySubstitutions.java:81)
+	at org.jvnet.hk2.internal.CacheKey.equals(CacheKey.java:121)
+	at java.util.concurrent.ConcurrentHashMap.get(ConcurrentHashMap.java:940)
+	at java.util.Properties.getProperty(Properties.java:1125)
+	at com.oracle.svm.core.jdk.SystemPropertiesSupport.getProperty(SystemPropertiesSupport.java:144)
+	at com.oracle.svm.core.jdk.Target_java_lang_System.getProperty(JavaLangSubstitutions.java:340)
+	at com.oracle.svm.jni.JNIJavaCallWrappers.jniInvoke_ARRAY:Ljava_lang_System_2_0002egetProperty_00028Ljava_lang_String_2_00029Ljava_lang_String_2(generated:0)
+Error: com.oracle.svm.hosted.substitute.DeletedElementException: Unsupported type java.lang.invoke.MemberName is reachable: All methods from java.lang.invoke should have been replaced during image building.
+To diagnose the issue, you can add the option --report-unsupported-elements-at-runtime. The unsupported element is then reported at run time when it is accessed the first time.
+Trace: 
+	at parsing java.lang.invoke.MethodHandles$Lookup.unreflect(MethodHandles.java:1740)
+Call path from entry point to java.lang.invoke.MethodHandles$Lookup.unreflect(Method): 
+	at java.lang.invoke.MethodHandles$Lookup.unreflect(MethodHandles.java:1732)
+	at javassist.util.proxy.SecurityActions$3.run(SecurityActions.java:95)
+	at javassist.util.proxy.SecurityActions$3.run(SecurityActions.java:90)
+	at com.oracle.svm.core.jdk.Target_java_security_AccessController.doPrivileged(SecuritySubstitutions.java:117)
+	at java.net.Socket.getInputStream(Socket.java:930)
+	at org.eclipse.jetty.server.ShutdownMonitor$ShutdownMonitorRunnable.run(ShutdownMonitor.java:337)
+	at java.lang.Thread.run(Thread.java:834)
+	at com.oracle.svm.core.thread.JavaThreads.threadStartRoutine(JavaThreads.java:527)
+	at com.oracle.svm.core.posix.thread.PosixJavaThreads.pthreadStartRoutine(PosixJavaThreads.java:193)
+	at com.oracle.svm.core.code.IsolateEnterStub.PosixJavaThreads_pthreadStartRoutine_e1f4a8c0039f8337338252cd8734f63a79b5e3df(generated:0)
+
+com.oracle.svm.core.util.UserError$UserException: Unsupported features in 3 methods
+Detailed message:
+Error: com.oracle.graal.pointsto.constraints.UnsupportedFeatureException: Invoke with MethodHandle argument could not be reduced to at most a single call or single field access. The method handle must be a compile time constant, e.g., be loaded from a `static final` field. Method that contains the method handle invocation: java.lang.invoke.Invokers$Holder.linkToTargetMethod(Object, Object)
+To diagnose the issue, you can add the option --report-unsupported-elements-at-runtime. The error is then reported at run time when the invoke is executed.
+Trace: 
+	at parsing java.lang.invoke.MethodHandles$Lookup.protectionDomain(MethodHandles.java:978)
+Call path from entry point to java.lang.invoke.MethodHandles$Lookup.protectionDomain(Class): 
+	at java.lang.invoke.MethodHandles$Lookup.protectionDomain(MethodHandles.java:978)
+	at java.lang.invoke.MethodHandles$Lookup.lookupClassProtectionDomain(MethodHandles.java:972)
+	at java.lang.invoke.MethodHandles$Lookup.defineClass(MethodHandles.java:960)
+	at javassist.util.proxy.DefineClassHelper.toPublicClass(DefineClassHelper.java:334)
+	at javassist.util.proxy.FactoryHelper.toClass(FactoryHelper.java:134)
+	at javassist.util.proxy.ProxyFactory.createClass3(ProxyFactory.java:603)
+	at javassist.util.proxy.ProxyFactory.createClass1(ProxyFactory.java:525)
+	at javassist.util.proxy.ProxyFactory.createClass(ProxyFactory.java:449)
+	at org.jvnet.hk2.internal.ProxyUtilities$4.run(ProxyUtilities.java:148)
+	at com.oracle.svm.core.jdk.Target_java_security_AccessController.doPrivileged(SecuritySubstitutions.java:81)
+	at org.jvnet.hk2.internal.CacheKey.equals(CacheKey.java:121)
+	at java.util.concurrent.ConcurrentHashMap.get(ConcurrentHashMap.java:940)
+	at java.util.Properties.getProperty(Properties.java:1125)
+	at com.oracle.svm.core.jdk.SystemPropertiesSupport.getProperty(SystemPropertiesSupport.java:144)
+	at com.oracle.svm.core.jdk.Target_java_lang_System.getProperty(JavaLangSubstitutions.java:340)
+	at com.oracle.svm.jni.JNIJavaCallWrappers.jniInvoke_ARRAY:Ljava_lang_System_2_0002egetProperty_00028Ljava_lang_String_2_00029Ljava_lang_String_2(generated:0)
+Error: com.oracle.svm.hosted.substitute.DeletedElementException: Unsupported method java.lang.ClassLoader.defineClass1(ClassLoader, String, byte[], int, int, ProtectionDomain, String) is reachable
+To diagnose the issue, you can add the option --report-unsupported-elements-at-runtime. The unsupported element is then reported at run time when it is accessed the first time.
+Trace: 
+	at parsing java.lang.System$2.defineClass(System.java:2127)
+Call path from entry point to java.lang.System$2.defineClass(ClassLoader, String, byte[], ProtectionDomain, String): 
+	at java.lang.System$2.defineClass(System.java:2127)
+	at java.lang.invoke.MethodHandles$Lookup.defineClass(MethodHandles.java:962)
+	at javassist.util.proxy.DefineClassHelper.toPublicClass(DefineClassHelper.java:334)
+	at javassist.util.proxy.FactoryHelper.toClass(FactoryHelper.java:134)
+	at javassist.util.proxy.ProxyFactory.createClass3(ProxyFactory.java:603)
+	at javassist.util.proxy.ProxyFactory.createClass1(ProxyFactory.java:525)
+	at javassist.util.proxy.ProxyFactory.createClass(ProxyFactory.java:449)
+	at org.jvnet.hk2.internal.ProxyUtilities$4.run(ProxyUtilities.java:148)
+	at com.oracle.svm.core.jdk.Target_java_security_AccessController.doPrivileged(SecuritySubstitutions.java:81)
+	at org.jvnet.hk2.internal.CacheKey.equals(CacheKey.java:121)
+	at java.util.concurrent.ConcurrentHashMap.get(ConcurrentHashMap.java:940)
+	at java.util.Properties.getProperty(Properties.java:1125)
+	at com.oracle.svm.core.jdk.SystemPropertiesSupport.getProperty(SystemPropertiesSupport.java:144)
+	at com.oracle.svm.core.jdk.Target_java_lang_System.getProperty(JavaLangSubstitutions.java:340)
+	at com.oracle.svm.jni.JNIJavaCallWrappers.jniInvoke_ARRAY:Ljava_lang_System_2_0002egetProperty_00028Ljava_lang_String_2_00029Ljava_lang_String_2(generated:0)
+Error: com.oracle.svm.hosted.substitute.DeletedElementException: Unsupported type java.lang.invoke.MemberName is reachable: All methods from java.lang.invoke should have been replaced during image building.
+To diagnose the issue, you can add the option --report-unsupported-elements-at-runtime. The unsupported element is then reported at run time when it is accessed the first time.
+Trace: 
+	at parsing java.lang.invoke.MethodHandles$Lookup.unreflect(MethodHandles.java:1740)
+Call path from entry point to java.lang.invoke.MethodHandles$Lookup.unreflect(Method): 
+	at java.lang.invoke.MethodHandles$Lookup.unreflect(MethodHandles.java:1732)
+	at javassist.util.proxy.SecurityActions$3.run(SecurityActions.java:95)
+	at javassist.util.proxy.SecurityActions$3.run(SecurityActions.java:90)
+	at com.oracle.svm.core.jdk.Target_java_security_AccessController.doPrivileged(SecuritySubstitutions.java:117)
+	at java.net.Socket.getInputStream(Socket.java:930)
+	at org.eclipse.jetty.server.ShutdownMonitor$ShutdownMonitorRunnable.run(ShutdownMonitor.java:337)
+	at java.lang.Thread.run(Thread.java:834)
+	at com.oracle.svm.core.thread.JavaThreads.threadStartRoutine(JavaThreads.java:527)
+	at com.oracle.svm.core.posix.thread.PosixJavaThreads.pthreadStartRoutine(PosixJavaThreads.java:193)
+	at com.oracle.svm.core.code.IsolateEnterStub.PosixJavaThreads_pthreadStartRoutine_e1f4a8c0039f8337338252cd8734f63a79b5e3df(generated:0)
+
+	at com.oracle.svm.core.util.UserError.abort(UserError.java:79)
+	at com.oracle.svm.hosted.FallbackFeature.reportAsFallback(FallbackFeature.java:221)
+	at com.oracle.svm.hosted.NativeImageGenerator.runPointsToAnalysis(NativeImageGenerator.java:741)
+	at com.oracle.svm.hosted.NativeImageGenerator.doRun(NativeImageGenerator.java:530)
+	at com.oracle.svm.hosted.NativeImageGenerator.lambda$run$0(NativeImageGenerator.java:445)
+	at java.base/java.util.concurrent.ForkJoinTask$AdaptedRunnableAction.exec(ForkJoinTask.java:1407)
+	at java.base/java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:290)
+	at java.base/java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec(ForkJoinPool.java:1020)
+	at java.base/java.util.concurrent.ForkJoinPool.scan(ForkJoinPool.java:1656)
+	at java.base/java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:1594)
+	at java.base/java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:177)
+Caused by: com.oracle.graal.pointsto.constraints.UnsupportedFeatureException: Unsupported features in 3 methods
+Detailed message:
+Error: com.oracle.graal.pointsto.constraints.UnsupportedFeatureException: Invoke with MethodHandle argument could not be reduced to at most a single call or single field access. The method handle must be a compile time constant, e.g., be loaded from a `static final` field. Method that contains the method handle invocation: java.lang.invoke.Invokers$Holder.linkToTargetMethod(Object, Object)
+To diagnose the issue, you can add the option --report-unsupported-elements-at-runtime. The error is then reported at run time when the invoke is executed.
+Trace: 
+	at parsing java.lang.invoke.MethodHandles$Lookup.protectionDomain(MethodHandles.java:978)
+Call path from entry point to java.lang.invoke.MethodHandles$Lookup.protectionDomain(Class): 
+	at java.lang.invoke.MethodHandles$Lookup.protectionDomain(MethodHandles.java:978)
+	at java.lang.invoke.MethodHandles$Lookup.lookupClassProtectionDomain(MethodHandles.java:972)
+	at java.lang.invoke.MethodHandles$Lookup.defineClass(MethodHandles.java:960)
+	at javassist.util.proxy.DefineClassHelper.toPublicClass(DefineClassHelper.java:334)
+	at javassist.util.proxy.FactoryHelper.toClass(FactoryHelper.java:134)
+	at javassist.util.proxy.ProxyFactory.createClass3(ProxyFactory.java:603)
+	at javassist.util.proxy.ProxyFactory.createClass1(ProxyFactory.java:525)
+	at javassist.util.proxy.ProxyFactory.createClass(ProxyFactory.java:449)
+	at org.jvnet.hk2.internal.ProxyUtilities$4.run(ProxyUtilities.java:148)
+	at com.oracle.svm.core.jdk.Target_java_security_AccessController.doPrivileged(SecuritySubstitutions.java:81)
+	at org.jvnet.hk2.internal.CacheKey.equals(CacheKey.java:121)
+	at java.util.concurrent.ConcurrentHashMap.get(ConcurrentHashMap.java:940)
+	at java.util.Properties.getProperty(Properties.java:1125)
+	at com.oracle.svm.core.jdk.SystemPropertiesSupport.getProperty(SystemPropertiesSupport.java:144)
+	at com.oracle.svm.core.jdk.Target_java_lang_System.getProperty(JavaLangSubstitutions.java:340)
+	at com.oracle.svm.jni.JNIJavaCallWrappers.jniInvoke_ARRAY:Ljava_lang_System_2_0002egetProperty_00028Ljava_lang_String_2_00029Ljava_lang_String_2(generated:0)
+Error: com.oracle.svm.hosted.substitute.DeletedElementException: Unsupported method java.lang.ClassLoader.defineClass1(ClassLoader, String, byte[], int, int, ProtectionDomain, String) is reachable
+To diagnose the issue, you can add the option --report-unsupported-elements-at-runtime. The unsupported element is then reported at run time when it is accessed the first time.
+Trace: 
+	at parsing java.lang.System$2.defineClass(System.java:2127)
+Call path from entry point to java.lang.System$2.defineClass(ClassLoader, String, byte[], ProtectionDomain, String): 
+	at java.lang.System$2.defineClass(System.java:2127)
+	at java.lang.invoke.MethodHandles$Lookup.defineClass(MethodHandles.java:962)
+	at javassist.util.proxy.DefineClassHelper.toPublicClass(DefineClassHelper.java:334)
+	at javassist.util.proxy.FactoryHelper.toClass(FactoryHelper.java:134)
+	at javassist.util.proxy.ProxyFactory.createClass3(ProxyFactory.java:603)
+	at javassist.util.proxy.ProxyFactory.createClass1(ProxyFactory.java:525)
+	at javassist.util.proxy.ProxyFactory.createClass(ProxyFactory.java:449)
+	at org.jvnet.hk2.internal.ProxyUtilities$4.run(ProxyUtilities.java:148)
+	at com.oracle.svm.core.jdk.Target_java_security_AccessController.doPrivileged(SecuritySubstitutions.java:81)
+	at org.jvnet.hk2.internal.CacheKey.equals(CacheKey.java:121)
+	at java.util.concurrent.ConcurrentHashMap.get(ConcurrentHashMap.java:940)
+	at java.util.Properties.getProperty(Properties.java:1125)
+	at com.oracle.svm.core.jdk.SystemPropertiesSupport.getProperty(SystemPropertiesSupport.java:144)
+	at com.oracle.svm.core.jdk.Target_java_lang_System.getProperty(JavaLangSubstitutions.java:340)
+	at com.oracle.svm.jni.JNIJavaCallWrappers.jniInvoke_ARRAY:Ljava_lang_System_2_0002egetProperty_00028Ljava_lang_String_2_00029Ljava_lang_String_2(generated:0)
+Error: com.oracle.svm.hosted.substitute.DeletedElementException: Unsupported type java.lang.invoke.MemberName is reachable: All methods from java.lang.invoke should have been replaced during image building.
+To diagnose the issue, you can add the option --report-unsupported-elements-at-runtime. The unsupported element is then reported at run time when it is accessed the first time.
+Trace: 
+	at parsing java.lang.invoke.MethodHandles$Lookup.unreflect(MethodHandles.java:1740)
+Call path from entry point to java.lang.invoke.MethodHandles$Lookup.unreflect(Method): 
+	at java.lang.invoke.MethodHandles$Lookup.unreflect(MethodHandles.java:1732)
+	at javassist.util.proxy.SecurityActions$3.run(SecurityActions.java:95)
+	at javassist.util.proxy.SecurityActions$3.run(SecurityActions.java:90)
+	at com.oracle.svm.core.jdk.Target_java_security_AccessController.doPrivileged(SecuritySubstitutions.java:117)
+	at java.net.Socket.getInputStream(Socket.java:930)
+	at org.eclipse.jetty.server.ShutdownMonitor$ShutdownMonitorRunnable.run(ShutdownMonitor.java:337)
+	at java.lang.Thread.run(Thread.java:834)
+	at com.oracle.svm.core.thread.JavaThreads.threadStartRoutine(JavaThreads.java:527)
+	at com.oracle.svm.core.posix.thread.PosixJavaThreads.pthreadStartRoutine(PosixJavaThreads.java:193)
+	at com.oracle.svm.core.code.IsolateEnterStub.PosixJavaThreads_pthreadStartRoutine_e1f4a8c0039f8337338252cd8734f63a79b5e3df(generated:0)
+
+	at com.oracle.graal.pointsto.constraints.UnsupportedFeatures.report(UnsupportedFeatures.java:129)
+	at com.oracle.svm.hosted.NativeImageGenerator.runPointsToAnalysis(NativeImageGenerator.java:738)
+	... 8 more
+Error: Image build request failed with exit status 1
