@@ -29,11 +29,27 @@ Installation steps are avaible on [GraalVM official site](https://www.graalvm.or
 | Complex service | Whole KumuluzEE functionality | |
 | Expand KumuluzEE maven-plugin| Final goal | |
 
-## Tracing agent
+## Requirements
+
++ Installed [GraalVM](https://www.graalvm.org/)
++ Environment variable `$JAVA_HOME` has to be set to GraalVM installation folder
++ In environment variable `$PATH` has to be add `$JAVA_HOME/bin` in order for native-image to work
+
+## Usage
 
 *Note: To change between uber-jar or exploded, maven-plugin goal must be set to repackage for uber-jar and to copy-dependencies for exploded.*
 
-### UBER(FAT) JAR
+### Running with help of scripts (EXPLODED)
+
+To execute mvn and tracing agent run `trace.sh` script.
+
+After completing tracing run `build.sh` script in order to build no-fallback image. 
+
+When image generation is done simply run `graalvm-basic` image.
+
+*Note: Edit those scripts to fit your needs*
+
+### Manually - UBER(FAT) JAR
 
 ```
 mvn clean package 
@@ -42,9 +58,8 @@ mvn clean package
 Use native-image-agent to generate configuration files for native-image (application will start):
 
 ```
-sudo java -agentlib:native-image-agent=config-merge-dir=api/src/main/resources/META-INF/native-image -jar api/target/graalvm-basic.jar 
+java -agentlib:native-image-agent=config-merge-dir=api/src/main/resources/META-INF/native-image -jar api/target/graalvm-basic.jar 
 ```
-
 
 Then generate native-image:
 ```
@@ -52,7 +67,6 @@ sudo native-image --no-fallback \
         --allow-incomplete-classpath \ 
         --enable-https \
         -H:+JNI \
-        -H:+ReportUnsupportedElementsAtRuntime \
         -H:+PrintClassInitialization \
         -H:+ReportExceptionStackTraces \
         -H:EnableURLProtocols=http,https,jar,jrt \
@@ -68,7 +82,7 @@ If everything is done right, you should be able to start native-image:
 ./graalvm-basic 
 ```
 
-### EXPLODED 
+### Manually - EXPLODED 
 
 ```
 mvn clean package 
@@ -86,7 +100,6 @@ sudo native-image --no-fallback \
         --allow-incomplete-classpath \ 
         --enable-https \
         -H:+JNI \
-        -H:+ReportUnsupportedElementsAtRuntime \
         -H:+PrintClassInitialization \
         -H:+ReportExceptionStackTraces \
         -H:EnableURLProtocols=http,https \
@@ -103,11 +116,6 @@ If everything is done right, you should be able to start native-image:
 ./graalvm-basic 
 ```
 
-## Extra
-
-Force org.eclipse.jetty package to be resolved at run time instead in build time
-```--initialize-at-run-time=org.eclipse.jetty``` 
- 
 ## Useful links
 
 ### Knowledge base

@@ -4,8 +4,6 @@
 # Builds GraalVM native-image
 native-image --no-fallback \
   --allow-incomplete-classpath \
-  -H:IncludeResources='.*/webapp/WEB-INF/web.xml$' \
-  -H:+ReportUnsupportedElementsAtRuntime \
   -H:+ReportExceptionStackTraces \
   -H:+PrintClassInitialization \
   -H:EnableURLProtocols=http,https \
