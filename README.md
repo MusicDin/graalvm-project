@@ -1,51 +1,30 @@
 # GraalVM Project
 
-## SUMMARY
+## Goal of this project
 Goal of this project is to make KumuluzEE framework compatible with GraalVM.
 
 ## GraalVM installation
-Installation steps are avaible on [GraalVM official site](https://www.graalvm.org/docs/getting-started/#install-graalvm).
-
-*Note that in this project is used GraalVM Community Edition(CE)*
+Installation steps are available on [GraalVM official site](https://www.graalvm.org/docs/getting-started/#install-graalvm).
 
 ## Project elements
 + Simple service:
   + API which return constants
   + Servlet which returns constants
   + Only one module (no business logic and no DB connectivity)
-+ Dockerfile for building an docker image
++ Dockerfile for building a docker image
   + Folder *Dockerfiles* contains backups and different type of docker files
-
-## Goals
-| Goal | Goal description | Status |
-| :--- | :--------------- | :----- |
-| Simple service | Create basic service in KumuluzEE framework | DONE |
-| Fallback image | Create native fallback image of *simple service* | DONE |
-| No-fallback image | Create native no-fallback image of *simple service* | FAILED |
-| Docker image | Create docker image that uses no-fallback native image | FAILED |
-| Intermediate service | Expend functionality of simple service | |
-| Fallback image | Create native fallback image of *intermediate service* | |
-| No-fallback image | Create native no-fallback image of *intermediate service* | |
-| Complex service | Whole KumuluzEE functionality | |
-| Expand KumuluzEE maven-plugin| Final goal | |
-
-## Requirements
-
-+ Installed [GraalVM](https://www.graalvm.org/)
-+ Environment variable `$JAVA_HOME` has to be set to GraalVM installation folder
-+ In environment variable `$PATH` has to be add `$JAVA_HOME/bin` in order for native-image to work
 
 ## Usage
 
-*Note: To change between uber-jar or exploded, maven-plugin goal must be set to repackage for uber-jar and to copy-dependencies for exploded.*
+*Note: maven-plugin goal has to be set to repackage for uber-jar and to copy-dependencies for exploded.*
 
-### Running with help of scripts (EXPLODED)
+### Running with scripts (EXPLODED)
 
 To execute mvn and tracing agent run `trace.sh` script.
 
-After completing tracing run `build.sh` script in order to build no-fallback image. 
+After tracing run `build.sh` script in order to build no-fallback image. 
 
-When image generation is done simply run `graalvm-basic` image.
+After generating image simply run `graalvm-basic`.
 
 *Note: Edit those scripts to fit your needs*
 
@@ -111,14 +90,18 @@ sudo native-image --no-fallback \
         graalvm-basic
 ```
 
-If everything is done right, you should be able to start native-image:
+If everything has been done right, you should be able to start native-image:
 ```
 ./graalvm-basic 
 ```
 
+## Known (potential) errors
+
+1. Resource *web.xml* is not included in generated image.
+Issue opened on [GraalVM Github](https://github.com/oracle/graal/issues/2470) may help, though it is not solved.
+
 ## Useful links
 
-### Knowledge base
 + [Class initialization in Native Image](https://github.com/oracle/graal/blob/master/substratevm/CLASS-INITIALIZATION.md)
 + [Github - JakaBernard/graalvm-diploma-aplikacija](https://github.com/JakaBernard/graalvm-diploma-aplikacija)
 + [Github - Oracle/GraalVM/native-image-limitations](https://github.com/oracle/graal/blob/master/substratevm/LIMITATIONS.md)
@@ -126,7 +109,6 @@ If everything is done right, you should be able to start native-image:
 + [Introducing the Tracing Agent: Simplifying GraalVM Native Image Configuration](https://medium.com/graalvm/introducing-the-tracing-agent-simplifying-graalvm-native-image-configuration-c3b56c486271)
 + [InfoQ - GraalVM 20.0: Run Tomcat as Native Image on Windows](https://www.infoq.com/news/2020/03/graalvm-20-tomcat-native-windows/)
 + [Apache - Tomacat 9 GraalVM support](https://ci.apache.org/projects/tomcat/tomcat9/docs/graal.html)
-+ [a]
 
 ### Forums/Issues
 + [Github - Service loader error](https://github.com/cstancu/native-image-service-loader-demo/blob/master/reflection_config.json)

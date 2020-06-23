@@ -1,4 +1,4 @@
-package si.fri.prpo.api.v1;
+package si.fri.graalvm.api.v1;
 
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;

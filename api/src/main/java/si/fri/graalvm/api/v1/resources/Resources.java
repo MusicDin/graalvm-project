@@ -1,8 +1,7 @@
-package si.fri.prpo.api.v1.resources;
+package si.fri.graalvm.api.v1.resources;
 
 import org.glassfish.jersey.process.internal.RequestScoped;
 
-import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;

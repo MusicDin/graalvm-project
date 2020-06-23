@@ -33,8 +33,3 @@ RUN gu install R
 #RUN ["native-image","--language:js","-cp","/usr/app/api/target/classes:/usr/app/api/target/dependency/*","com.kumuluz.ee.EeApplication","-H:IncludeResourceBundles=META-INF/kumuluzee/boot-loader","-H:+ReportExceptionStackTraces","--no-fallback","--report-unsupported-elements-at-runtime","runme"]
 RUN native-image --language:js -cp /usr/app/api/target/classes:/usr/app/api/target/dependency/* com.kumuluz.ee.EeApplication -0 -H:+ReportExceptionStackTraces --no-fallback --report-unsupported-elements-at-runtime runme
 ENTRYPOINT ["./runme"]
-
-# To use reflection file when generating native-image
-# -H:ReflectionConfigurationFiles=/usr/app/reflectionConfig.json
-# --static (builds statically linked executable !!REQUIRES: libc and zlib !!!)
-# -0 (0 - no optimization, 1 - basic optimization)

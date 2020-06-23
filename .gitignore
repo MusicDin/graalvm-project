@@ -1,6 +1,14 @@
 ## IntelliJ files
 .idea/*
 *.iml
+
+## Maven packages
 */target/
+
+## GraalVM generated files
+reports/
+logs/
 graalvm-basic
+
+## Java logs
 hs_*.log

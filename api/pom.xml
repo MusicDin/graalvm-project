@@ -51,7 +51,7 @@
 <!--                    <skip>false</skip>-->
 <!--                    <imageName>graalvm-basic</imageName>-->
 <!--                    <buildArgs>-->
-<!--                        &#45;&#45;no-fallback-->
+<!--                        no-fallback-->
 <!--                    </buildArgs>-->
 <!--                </configuration>-->
 <!--            </plugin>-->

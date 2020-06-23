@@ -1,6 +1,3 @@
-# Removes current image if exists
-#rm -f ./graalvm-basic
-
 # Builds GraalVM native-image
 native-image --no-fallback \
   --allow-incomplete-classpath \
