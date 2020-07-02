@@ -28,6 +28,9 @@ delete_tmp_times=false
 # Execution time
 time_start=$(date +%s.%N)
 
+# Generate fallback native image
+native-image --force-fallback -cp api/target/classes:api/target/dependency/* com.kumuluz.ee.EeApplication graalvm-basic
+
 # Kill application if it is already running
 pkill -f 'graalvm'
 
@@ -38,7 +41,7 @@ for (( i = 0; i < $numOfRuns; i++ ))
 do
 
 	# Run java application in background and write log into temporary file
-	java -cp api/target/classes:api/target/dependency/* com.kumuluz.ee.EeApplication graalvm-basic > $tmp_log &
+	./graalvm-basic > $tmp_log &
 
 	sleep 1
 
@@ -74,7 +77,7 @@ aprox=$(echo "$sum_times/$numOfRuns" | bc)
 # Remove temporary file containing times for each run
 if $delete_tmp_times
 then
-        rm $tmp_times
+	rm $tmp_times
 fi
 
 # Meassure script execution time
