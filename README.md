@@ -100,6 +100,18 @@ If everything has been done right, you should be able to start native-image:
 1. Resource *web.xml* is not included in generated image.
 Issue opened on [GraalVM Github](https://github.com/oracle/graal/issues/2470) may help, though it is not solved.
 
+## Boot time comparison
+
+*All tests were executed on virtual machine with 8 vCPU and 64GB RAM.*
+
+*Each time in table represents an avarage time of 100 boots (in milliseconds). Times are saved in [time_tests](./time_tests) folder.*
+
+Project | Time to boot in JVM | Fallback image | No-fallback image
+:---: | :---: | :---: | :---:
+this | 1787 ms | 1832 ms | /
+fri-pointer | 7832 ms | 8347 ms | /
+
+
 ## Useful links
 
 + [Class initialization in Native Image](https://github.com/oracle/graal/blob/master/substratevm/CLASS-INITIALIZATION.md)

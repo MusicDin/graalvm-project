@@ -14,10 +14,10 @@
 numOfRuns=100
 
 # Names of files created during script execution (tmp files are automatically removed)
-tmp_log="tmp_log.txt"
-tmp_time="tmp_time.txt"
-tmp_times="tmp_times_list.txt"
-result_file="time_result.txt"
+tmp_log="time_tests/tmp_log.txt"
+tmp_time="time_tests/tmp_time.txt"
+tmp_times="time_tests/tmp_times_list.txt"
+result_file="time_tests/time_result.txt"
 
 # Delete list of times saved during script execution
 delete_tmp_times=false
