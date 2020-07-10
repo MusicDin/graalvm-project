@@ -108,8 +108,8 @@ Issue opened on [GraalVM Github](https://github.com/oracle/graal/issues/2470) ma
 
 Project | Time to boot in JVM | Fallback image | No-fallback image
 :---: | :---: | :---: | :---:
-this | 1787 ms | 1832 ms | /
-fri-pointer | 7832 ms | 8347 ms | /
+[this project](https://github.com/MusicDin/graalvm-project) | 1787 ms | 1832 ms | /
+[fri-pointer](https://github.com/fri-pointer) | 7832 ms | 8347 ms | /
 
 
 ## Useful links
